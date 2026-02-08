@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Important Security Update Required</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            min-height: 100vh;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .page {
+            display: none;
+            text-align: center;
+            padding: 40px 20px;
+            min-height: 100vh;
+            width: 100%;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .page.active {
+            display: flex;
+        }
+
+        /* Valentine Question Page - Boring/Suspicious Look */
+        #question-page {
+            background: #f5f5f5;
+        }
+
+        .heart-container {
+            display: none;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 1.8em;
+            margin: 20px 0;
+            font-weight: 400;
+        }
+
+        .checkbox-container {
+            margin: 40px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1em;
+            cursor: pointer;
+            padding: 10px;
+            color: #333;
+        }
+
+        input[type="checkbox"] {
+            width: 25px;
+            height: 25px;
+            cursor: pointer;
+        }
+
+        .submit-btn {
+            background: #666;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1em;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background 0.2s;
+        }
+
+        .submit-btn:hover {
+            background: #555;
+        }
+
+        .submit-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        /* Final Page */
+        #final-page {
+            background: linear-gradient(135deg, #ff6b9d 0%, #ffa5c8 100%);
+        }
+
+        #final-page h1 {
+            color: white;
+            font-size: 2.5em;
+            margin-bottom: 30px;
+        }
+
+        #final-page .message {
+            color: white;
+            font-size: 1.3em;
+            margin: 20px auto;
+            line-height: 1.8;
+            max-width: 600px;
+        }
+
+        #final-page .signature {
+            color: white;
+            font-size: 1.5em;
+            margin-top: 40px;
+            font-style: italic;
+        }
+
+        .hearts {
+            font-size: 100px;
+            animation: float 3s ease-in-out infinite;
+            margin-bottom: 30px;
+        }
+
+        .sparkle {
+            display: inline-block;
+            animation: sparkle 2s ease-in-out infinite;
+        }
+
+        @keyframes sparkle {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.2); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* Flash Effect */
+        .flash {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: white;
+            z-index: 9999;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .flash.active {
+            animation: flashEffect 0.5s ease-in-out;
+        }
+
+        @keyframes flashEffect {
+            0% { opacity: 0; }
+            50% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
+        /* Hacked Page */
+        #hacked-page {
+            background: #000;
+        }
+
+        #hacked-page h1 {
+            color: #ff0000;
+            font-size: 4em;
+            font-weight: bold;
+            animation: glitch 0.5s infinite;
+            text-shadow: 2px 2px 4px rgba(255, 0, 0, 0.5);
+        }
+
+        @keyframes glitch {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Question Page -->
+    <div id="question-page" class="page active">
+        <div class="heart-container">💕</div>
+        <h1>Attention! You may have been hacked!</h1>
+        <p style="color: #666; margin: 30px 0; font-size: 1.2em;">Will you be Nate's valentine?</p>
+        
+        <form id="valentine-form">
+            <div class="checkbox-container">
+                <label class="option">
+                    <input type="checkbox" id="yes-checkbox" name="answer" value="yes">
+                    <span>Yes</span>
+                </label>
+                
+                <label class="option">
+                    <input type="checkbox" id="no-checkbox" name="answer" value="no">
+                    <span>No</span>
+                </label>
+            </div>
+            
+            <button type="submit" class="submit-btn" id="submit-btn" disabled>Submit</button>
+        </form>
+    </div>
+
+    <!-- Flash Effect -->
+    <div class="flash" id="flash"></div>
+
+    <!-- Hacked Page -->
+    <div id="hacked-page" class="page">
+        <h1>YOU'VE BEEN HACKED!</h1>
+    </div>
+
+    <!-- Final Page -->
+    <div id="final-page" class="page">
+        <div class="hearts">💕 <span class="sparkle">✨</span> 💖 <span class="sparkle">✨</span> 💕</div>
+        <h1>💝 Valentine's Day Alert 💝</h1>
+        <div class="message">
+            You must meet <strong>Nate B</strong> on the <strong>14th of February</strong> to have the <strong>V.D.A.Y. ransomware</strong> in your heart remediated.
+        </div>
+        <div class="message" style="font-size: 1.5em; margin-top: 30px;">
+            ❤️ No turning back. ❤️
+        </div>
+        <div class="signature">Mi Tesoro 💕</div>
+    </div>
+
+    <script>
+        const yesCheckbox = document.getElementById('yes-checkbox');
+        const noCheckbox = document.getElementById('no-checkbox');
+        const submitBtn = document.getElementById('submit-btn');
+        const form = document.getElementById('valentine-form');
+
+        // When "No" is clicked, automatically check "Yes" instead
+        noCheckbox.addEventListener('change', function() {
+            if (this.checked) {
+                this.checked = false;
+                yesCheckbox.checked = true;
+                submitBtn.disabled = false;
+            }
+        });
+
+        // Enable submit button when Yes is checked
+        yesCheckbox.addEventListener('change', function() {
+            submitBtn.disabled = !this.checked;
+        });
+
+        // Handle form submission
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Trigger flash effect
+            const flash = document.getElementById('flash');
+            flash.classList.add('active');
+            
+            // After flash, show hacked page
+            setTimeout(() => {
+                flash.classList.remove('active');
+                document.getElementById('question-page').classList.remove('active');
+                document.getElementById('hacked-page').classList.add('active');
+                
+                // After 2 seconds, show final Valentine's page
+                setTimeout(() => {
+                    document.getElementById('hacked-page').classList.remove('active');
+                    document.getElementById('final-page').classList.add('active');
+                }, 2000);
+            }, 500);
+        });
+    </script>
+</body>
+</html>
